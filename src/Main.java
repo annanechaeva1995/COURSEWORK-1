@@ -1,6 +1,5 @@
 public class Main {
-    private static Employee[] employees = new Employee[10];
-    private static Employee employee;
+    private static final Employee[] employees = new Employee[10];
 
     public static void printList() {
         for (Employee employee : employees) {
@@ -9,7 +8,7 @@ public class Main {
     }
 
     public static void getMonthlyExpenses() {
-        int monthlyExpenses = 0;
+        double monthlyExpenses = 0;
         for (Employee employee : employees) {
             monthlyExpenses = monthlyExpenses + employee.getSalary();
         }
@@ -17,7 +16,7 @@ public class Main {
     }
 
     public static void getMaxSalary() {
-        int maxSalary = 1;
+        double maxSalary = 1;
         for (Employee employee : employees) {
             if (employee.getSalary() > maxSalary) {
                 maxSalary = employee.getSalary();
@@ -31,7 +30,7 @@ public class Main {
     }
 
     public static void getMinSalary() {
-        int minSalary = 100000;
+        double minSalary = 100000;
         for (Employee employee : employees) {
             if (employee.getSalary() < minSalary) {
                 minSalary = employee.getSalary();
@@ -45,7 +44,7 @@ public class Main {
     }
 
     public static void getAverageMonthlyExpenses() {
-        int monthlyExpenses = 0;
+        double monthlyExpenses = 0;
         for (Employee employee : employees) {
             monthlyExpenses = monthlyExpenses + employee.getSalary();
         }
@@ -56,6 +55,100 @@ public class Main {
     public static void getName() {
         for (Employee employee : employees) {
             System.out.println(employee.getName());
+        }
+    }
+
+    public static void indexTheSalary(double percent) {
+        for (Employee employee : employees) {
+            employee.setSalary(employee.getSalary() * (1 + percent));
+        }
+    }
+
+    public static void printListDepartment(int department) {
+        System.out.println("Отдел " + department + ". Сотрудники: ");
+        for (Employee employee : employees) {
+            if (employee.getDepartment() == department) {
+                System.out.println(employee.getId() + " " + employee.getName() + " " + employee.getSalary());
+            }
+        }
+    }
+
+    public static void getMaxSalaryDepartment(int department) {
+        double maxSalary = 1;
+        for (Employee employee : employees) {
+            if (employee.getSalary() > maxSalary && employee.getDepartment() == department) {
+                maxSalary = employee.getSalary();
+            }
+        }
+        for (Employee employee : employees) {
+            if (employee.getSalary() == maxSalary) {
+                System.out.println("Сотрудник с максимальной зарплатой по отделу: " + employee);
+            }
+        }
+    }
+
+    public static void getMinSalaryDepartment(int department) {
+        double minSalary = 100000;
+        for (Employee employee : employees) {
+            if (employee.getSalary() < minSalary && employee.getDepartment() == department) {
+                minSalary = employee.getSalary();
+            }
+        }
+        for (Employee employee : employees) {
+            if (employee.getSalary() == minSalary) {
+                System.out.println("Сотрудник с минимальной зарплатой по отделу: " + employee);
+            }
+        }
+    }
+
+    public static void getMonthlyExpensesDepartment(int department) {
+        double monthlyExpenses = 0;
+        for (Employee employee : employees) {
+            if (employee.getDepartment() == department) {
+                monthlyExpenses = monthlyExpenses + employee.getSalary();
+            }
+        }
+        System.out.println("Ежемесячные расходы на зарплаты сотрудникам по отделу составляют: " + monthlyExpenses + " рублей.");
+    }
+
+    public static void getAverageMonthlyExpensesDepartment(int department) {
+        double monthlyExpenses = 0;
+        int number = 0;
+        double averageMonthlyExpenses = 0;
+
+        for (Employee employee : employees) {
+            if (employee.getDepartment() == department) {
+                monthlyExpenses = monthlyExpenses + employee.getSalary();
+                number = number + 1;
+                averageMonthlyExpenses = monthlyExpenses / number;
+            }
+        }
+        System.out.println("Средняя зарплата сотрудника по отделу составляет: " + averageMonthlyExpenses + " рублей.");
+    }
+
+    public static void indexTheSalaryDepartment(int department, double percent) {
+        for (Employee employee : employees) {
+            if (employee.getDepartment() == department) {
+                employee.setSalary(employee.getSalary() * (1 + percent));
+            }
+        }
+    }
+
+    public static void getSalaryLessThanTheNumber(double a) {
+        System.out.println("Сотрудники с зарплатой меньше " + a + ": ");
+        for (Employee employee : employees) {
+            if (employee.getSalary() < a) {
+                System.out.println(employee.getId() + " " + employee.getName() + " " + employee.getSalary());
+            }
+        }
+    }
+
+    public static void getSalaryAboveTheNumber(double a) {
+        System.out.println("Сотрудники с зарплатой больше " + a + ": ");
+        for (Employee employee : employees) {
+            if (employee.getSalary() >= a) {
+                System.out.println(employee.getId() + " " + employee.getName() + " " + employee.getSalary());
+            }
         }
     }
 
@@ -77,5 +170,16 @@ public class Main {
         getMinSalary();
         getAverageMonthlyExpenses();
         getName();
+        indexTheSalary(0.05);
+        printList();
+
+        getMaxSalaryDepartment(5);
+        getMinSalaryDepartment(5);
+        getMonthlyExpensesDepartment(5);
+        getAverageMonthlyExpensesDepartment(5);
+        indexTheSalaryDepartment(5, 0.03);
+        printListDepartment(5);
+        getSalaryLessThanTheNumber(50000);
+        getSalaryAboveTheNumber(50000);
     }
 }
